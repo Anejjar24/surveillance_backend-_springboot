@@ -24,6 +24,7 @@ public class OptionController {
         return optionService.addOption(option);
     }
 
+
     // READ: Get all options
     @GetMapping(value = "/", produces = { "application/json", "application/xml" })
     public List<Option> getAllOptions() {

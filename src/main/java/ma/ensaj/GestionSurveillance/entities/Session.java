@@ -15,6 +15,7 @@ public class Session {
 
     private String type;
     private LocalDate startDate;
+    private LocalDate endDate;
 
     private String debutMatin1;
     private String finMatin1;
@@ -43,6 +44,14 @@ public class Session {
 
     public String getDebutSoir2() {
         return debutSoir2;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public void setDebutSoir2(String debutSoir2) {

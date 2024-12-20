@@ -1,5 +1,6 @@
 package ma.ensaj.GestionSurveillance.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,8 +14,10 @@ public class Module {
     private String nom;
 
     // Relation ManyToOne avec Option
+
     @ManyToOne
-    @JoinColumn(name = "option_id") // Clé étrangère
+    @JoinColumn(name = "option_id")
+    @JsonBackReference
     private Option option;
 
 

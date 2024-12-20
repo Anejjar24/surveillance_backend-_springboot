@@ -1,4 +1,6 @@
 package ma.ensaj.GestionSurveillance.entities;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,12 +20,16 @@ public class Option {
     private String nom;
 
     // Relation avec Department
+
     @ManyToOne
-    @JoinColumn(name = "department_id") // Correction du nom de la colonne
+    @JoinColumn(name = "department_id")
+    @JsonBackReference
     private Department department;
 
     // Relation OneToMany avec Module
+
     @OneToMany(mappedBy = "option", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Module> modules = new ArrayList<>();
 
     public Long getId() {

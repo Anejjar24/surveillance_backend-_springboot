@@ -4,11 +4,13 @@ import ma.ensaj.GestionSurveillance.entities.Department;
 import ma.ensaj.GestionSurveillance.repositories.DepartmentRepository;
 import ma.ensaj.GestionSurveillance.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
@@ -27,12 +29,12 @@ public class DepartmentController {
         return department.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/")
+    @PostMapping(value="/")
     public Department createDepartment(@RequestBody Department department) {
         return departmentService.saveDepartment(department);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value="/{id}")
     public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody Department department) {
         Optional<Department> existingDepartment = departmentService.getDepartmentById(id);
         if (existingDepartment.isPresent()) {

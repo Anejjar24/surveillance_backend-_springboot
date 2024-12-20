@@ -1,5 +1,6 @@
 package ma.ensaj.GestionSurveillance.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,8 +18,10 @@ public class Enseignant {
     private String prenom;
 
     // Relation ManyToOne avec Department
+
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false) // Clé étrangère
+    @JsonBackReference
     private Department department;
 
     @Column(name = "dispense")

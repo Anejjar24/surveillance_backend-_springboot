@@ -1,5 +1,7 @@
 package ma.ensaj.GestionSurveillance.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
+
 @Table(name = "department")
 public class Department {
     @Id
@@ -19,11 +22,15 @@ public class Department {
     private String nom;
 
     // Relation OneToMany avec Option
+
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Option> options;
 
     // Relation OneToMany avec Enseignant
+
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Enseignant> enseignants;
 
 
