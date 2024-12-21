@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Data
-
 @Table(name = "department")
 public class Department {
     @Id

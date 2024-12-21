@@ -1,10 +1,15 @@
 package ma.ensaj.GestionSurveillance.services;
+import com.opencsv.CSVReader;
 import ma.ensaj.GestionSurveillance.entities.Module;
 import ma.ensaj.GestionSurveillance.entities.Option;
 import ma.ensaj.GestionSurveillance.repositories.ModuleRepository;
+import ma.ensaj.GestionSurveillance.repositories.OptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -12,7 +17,30 @@ public class ModuleService {
 
     @Autowired
     private ModuleRepository moduleRepository;
+    @Autowired
+    private OptionRepository optionRepository;
 
+    public List<Module> importModulesFromCsv(Long optionId, MultipartFile file) {
+        List<Module> modules = new ArrayList<>();
+
+        // Get the Option
+        Option option = optionRepository.findById(optionId)
+                .orElseThrow(() -> new RuntimeException("Option not found"));
+
+        try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+            String[] nextLine;
+            reader.readNext(); // Skip header line
+            while ((nextLine = reader.readNext()) != null) {
+                Module module = new Module();
+                module.setNom(nextLine[0]);
+                module.setOption(option);
+                modules.add(module);
+            }
+            return moduleRepository.saveAll(modules);
+        } catch (Exception e) {
+            throw new RuntimeException("Error importing modules from CSV: " + e.getMessage());
+        }
+    }
     // CREATE: Add a new module
     public Module addModule(Module module) {
         return moduleRepository.save(module);

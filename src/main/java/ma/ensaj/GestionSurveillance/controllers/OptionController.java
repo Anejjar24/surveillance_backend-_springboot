@@ -6,8 +6,10 @@ import ma.ensaj.GestionSurveillance.repositories.OptionRepository;
 import ma.ensaj.GestionSurveillance.repositories.SessionRepository;
 import ma.ensaj.GestionSurveillance.services.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -81,6 +83,19 @@ public class OptionController {
     @GetMapping(value = "/count/department", produces = { "application/json", "application/xml" })
     public long countOptionsByDepartment(@RequestBody Department department) {
         return optionService.countOptionsByDepartment(department);
+    }
+    @PostMapping("/import")
+    public ResponseEntity<List<Option>> importOptions(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        try {
+            List<Option> options = optionService.importOptionsFromCsv(file);
+            return ResponseEntity.ok(options);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
 }

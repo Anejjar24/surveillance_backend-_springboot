@@ -6,8 +6,10 @@ import ma.ensaj.GestionSurveillance.repositories.DepartmentRepository;
 import ma.ensaj.GestionSurveillance.repositories.ModuleRepository;
 import ma.ensaj.GestionSurveillance.services.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @RestController
@@ -71,5 +73,21 @@ public class ModuleController {
     @GetMapping(value = "/count", produces = { "application/json", "application/xml" })
     public long countAllModules() {
         return moduleService.countAllModules();
+    }
+    @PostMapping("/option/{optionId}/import")
+    public ResponseEntity<List<Module>> importModules(
+            @PathVariable Long optionId,
+            @RequestParam("file") MultipartFile file) {
+
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        try {
+            List<Module> modules = moduleService.importModulesFromCsv(optionId, file);
+            return ResponseEntity.ok(modules);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

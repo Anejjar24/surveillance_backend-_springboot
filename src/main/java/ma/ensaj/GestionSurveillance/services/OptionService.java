@@ -1,12 +1,16 @@
 package ma.ensaj.GestionSurveillance.services;
 
+import com.opencsv.CSVReader;
 import ma.ensaj.GestionSurveillance.entities.Department;
 import ma.ensaj.GestionSurveillance.entities.Option;
 import ma.ensaj.GestionSurveillance.repositories.OptionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +20,22 @@ public class OptionService {
 
     @Autowired
     private OptionRepository optionRepository;
-
+    public List<Option> importOptionsFromCsv(MultipartFile file) {
+        List<Option> options = new ArrayList<>();
+        try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+            String[] nextLine;
+            reader.readNext(); // Skip header line
+            while ((nextLine = reader.readNext()) != null) {
+                Option option = new Option();
+                option.setNom(nextLine[0]); // On ne prend que le nom
+                options.add(option);
+            }
+            optionRepository.saveAll(options);
+        } catch (Exception e) {
+            throw new RuntimeException("Error importing options from CSV: " + e.getMessage());
+        }
+        return options;
+    }
     // CREATE: Add a new option
     public Option addOption(Option option) {
         return optionRepository.save(option);

@@ -6,8 +6,10 @@ import ma.ensaj.GestionSurveillance.repositories.DepartmentRepository;
 import ma.ensaj.GestionSurveillance.repositories.EnseignantRepository;
 import ma.ensaj.GestionSurveillance.services.EnseignantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +19,26 @@ import java.util.Optional;
 @RequestMapping("/enseignants")
 public class EnseignantController {
 
+
     @Autowired
     private EnseignantService enseignantService;
+
+    @PostMapping("/department/{departmentId}/import")
+    public ResponseEntity<List<Enseignant>> importEnseignants(
+            @PathVariable Long departmentId,
+            @RequestParam("file") MultipartFile file
+    ) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        try {
+            List<Enseignant> enseignants = enseignantService.importEnseignantsFromCsv(departmentId, file);
+            return ResponseEntity.ok(enseignants);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 
     // CREATE: Add a new enseignant
     @PostMapping(value="/", consumes = { "application/json", "application/xml" }, produces = { "application/json", "application/xml" })

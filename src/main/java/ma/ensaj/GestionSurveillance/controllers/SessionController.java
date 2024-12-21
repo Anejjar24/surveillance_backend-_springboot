@@ -3,8 +3,12 @@ package ma.ensaj.GestionSurveillance.controllers;
 import ma.ensaj.GestionSurveillance.entities.Session;
 import ma.ensaj.GestionSurveillance.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +58,18 @@ public class SessionController {
     @GetMapping(value = "/count", produces = { "application/json", "application/xml" })
     public Long countSessions() {
         return sessionService.countSessions();
+    }
+    @PostMapping("/import")
+    public ResponseEntity<List<Session>> importSessions(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        try {
+            List<Session> sessions = sessionService.importSessionsFromCsv(file);
+            return ResponseEntity.ok(sessions);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

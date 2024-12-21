@@ -4,9 +4,11 @@ import ma.ensaj.GestionSurveillance.entities.Department;
 import ma.ensaj.GestionSurveillance.repositories.DepartmentRepository;
 import ma.ensaj.GestionSurveillance.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,5 +59,19 @@ public class DepartmentController {
     @GetMapping(value = "/count", produces = { "application/json", "application/xml" })
     public Long countDepartments() {
         return departmentService.countDepartments();
+    }
+
+    @PostMapping("/import")
+    public ResponseEntity<List<Department>> importDepartments(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        try {
+            List<Department> departments = departmentService.importDepartmentsFromCsv(file);
+            return ResponseEntity.ok(departments);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }
