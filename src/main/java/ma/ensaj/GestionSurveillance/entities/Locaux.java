@@ -1,6 +1,13 @@
 package ma.ensaj.GestionSurveillance.entities;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -14,20 +21,24 @@ public class Locaux {
     private int taille;
     private String type;
 
-    public Long getId() {
-        return id;
+    @ManyToMany(mappedBy = "locaux")
+    @JsonBackReference
+    private List<Exam> exams = new ArrayList<>();
+
+    public List<Exam> getExams() {
+        return exams;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
     }
 
-    public String getNom() {
-        return nom;
+    public String getType() {
+        return type;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getTaille() {
@@ -38,11 +49,19 @@ public class Locaux {
         this.taille = taille;
     }
 
-    public String getType() {
-        return type;
+    public String getNom() {
+        return nom;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
