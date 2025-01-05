@@ -1,11 +1,25 @@
 # Gestion Surveillance
-
-## Backend - Description et Installation
-
-### Description
+## Description
 
 Le backend de "Gestion Surveillance" est une application Spring Boot qui fournit les API RESTful nécessaires pour gérer les données de l'application. Il gère la persistance des données via une base de données relationnelle.
 
+---
+## Table des matières
+
+   
+1. [Prérequis](#prérequis)
+
+2. [Installation](#installation)
+ 
+3. [Configuration](#configuration)
+ 
+4. [Technologies utilisées](#technologies-utilisées)
+   
+5. [Architecture du projet](#architecture-du-projet)
+6. [API Endpoints](#api-endpoints)
+ 
+---
+ 
 ### Prérequis
 
 - Java JDK 17 ou supérieur
