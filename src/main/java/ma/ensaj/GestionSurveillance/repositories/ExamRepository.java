@@ -16,4 +16,10 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     List<Exam> findByDepartement_Id(Long departementId);
     List<Exam> findByModule_Id(Long moduleId);
     List<Exam> findByOption_Id(Long optionId);
+
+    @Query("SELECT e FROM Exam e WHERE e.date = :date AND e.startTime >= :startTime AND e.endTime <= :endTime AND e.session.id = :sessionId")
+    List<Exam> findByDateAndTime(@Param("date") LocalDate date,
+                                 @Param("startTime") LocalTime startTime,
+                                 @Param("endTime") LocalTime endTime,
+                                 @Param("sessionId") Long sessionId);
 }

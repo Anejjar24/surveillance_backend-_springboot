@@ -98,5 +98,18 @@ public class OptionController {
         }
     }
 
+    // OptionController.java
+
+    @GetMapping(value = "/{id}", produces = { "application/json", "application/xml" })
+    public ResponseEntity<Option> getOptionById(@PathVariable Long id) {
+        try {
+            Option option = optionService.getOptionById(id);
+            return ResponseEntity.ok(option);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
 }
 

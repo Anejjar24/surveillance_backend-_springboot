@@ -97,4 +97,11 @@ public class OptionService {
     public long countAllOptions() {
         return optionRepository.count();
     }
+    // OptionService.java
+
+    public Option getOptionById(Long id) {
+        return optionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Option not found"));
+    }
+
 }

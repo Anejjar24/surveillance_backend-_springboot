@@ -97,4 +97,11 @@ public class ModuleService {
         }
         return false;
     }
+
+    // ModuleService.java
+    public Module getModuleById(Long id) {
+        Optional<Module> module = moduleRepository.findById(id);
+        return module.orElseThrow(() -> new RuntimeException("Module not found"));
+    }
+
 }

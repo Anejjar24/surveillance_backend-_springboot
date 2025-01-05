@@ -90,4 +90,16 @@ public class ModuleController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    // ModuleController.java
+    @GetMapping("/{id}")
+    public ResponseEntity<Module> getModuleById(@PathVariable Long id) {
+        try {
+            Module module = moduleService.getModuleById(id);
+            return ResponseEntity.ok(module);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
 }
