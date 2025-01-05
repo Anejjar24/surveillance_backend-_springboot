@@ -43,7 +43,7 @@ mvn spring-boot:run
 
 ```
 
-Le serveur sera disponible à l'adresse : http://localhost:8080
+Le serveur sera disponible à l'adresse : http://localhost:8082
 
 ### API Endpoints
 
@@ -92,5 +92,17 @@ src/
 │       ├── templates/           # 📑 Templates (si utilisés)
 │       └── application.properties  # ⚙️ Configuration de l'application
 ```
+
+### Configuration
+
+La configuration de la base de données se fait dans le fichier `application.properties` situé dans `src/main/resources/`.
+
+```properties
+# Configuration de la base de données MySQL
+spring.datasource.url=jdbc:mysql://localhost:3306/surveillance_jee
+spring.datasource.username=votre_user
+spring.datasource.password=votre_mot_de_passe
+ ```
+
 
 
