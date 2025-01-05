@@ -8,7 +8,7 @@ Le backend de "Gestion Surveillance" est une application Spring Boot qui fournit
 
 ### Prérequis
 
-- Java JDK 11 ou supérieur
+- Java JDK 17 ou supérieur
 
 - Maven 3.6 ou supérieur
 
@@ -28,13 +28,14 @@ git clone https://github.com/votre-utilisateur/gestion-surveillance-backend.git
 
 ```bash
 
-cd gestion-surveillance-backend
+cd surveillance_backend-_springboot-main
 
 ```
 
-3. Configurez la base de données dans src/main/resources/application.properties
+3. Configurez la base de données dans
+src/main/resources/application.properties
 
-4. Compilez et lancez l'application :
+5. Compilez et lancez l'application :
 
 ```bash
 
@@ -48,15 +49,19 @@ Le serveur sera disponible à l'adresse : http://localhost:8080
 
 * /api/auth - Authentification
 
-* /api/examens - Gestion des examens
+* /sessions - Gestion des sessions
 
-* /api/modules - Gestion des modules
+* /departments - Gestion des départements
 
-* /api/departements - Gestion des départements
+* /locals - Gestion des locaux
 
-* /api/locaux - Gestion des locaux
+* /enseignants - Gestion des enseignants 
 
-* /api/enseignants - Gestion des enseignants
+* /options - Gestion des options
+
+* /modules - Gestion des modules
+
+* /exams - Gestion des examens 
 
 ### Technologies utilisées
 
@@ -70,20 +75,4 @@ Le serveur sera disponible à l'adresse : http://localhost:8080
 
 * Maven
 
-## Contribution
 
-Les contributions sont les bienvenues ! Pour contribuer :
-
-1. Forkez le projet
-
-2. Créez une branche pour votre fonctionnalité
-
-3. Committez vos changements
-
-4. Poussez vers la branche
-
-5. Ouvrez une Pull Request
-
-## Licence
-
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
