@@ -74,5 +74,23 @@ Le serveur sera disponible à l'adresse : http://localhost:8080
 * MySQL
 
 * Maven
+### Architucture du projet
+```
+src/
+├── main/
+│   ├── java/
+│   │   └── ma.ensaj.GestionSurveillance/
+│   │       ├── config/           # ⚙️ Configurations Spring
+│   │       ├── controllers/      # 🎮 Contrôleurs REST
+│   │       ├── entities/         # 📦 Entités JPA
+│   │       ├── repositories/     # 💾 Repositories Spring Data
+│   │       ├── security/         # 🔒 Configuration sécurité
+│   │       ├── services/         # 🔧 Services métier
+│   │       └── GestionSurveillanceApplication.java  # 🚀 Point d'entrée de l'application
+│   └── resources/
+│       ├── static/              # 📁 Ressources statiques
+│       ├── templates/           # 📑 Templates (si utilisés)
+│       └── application.properties  # ⚙️ Configuration de l'application
+```
 
 
