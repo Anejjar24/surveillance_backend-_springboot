@@ -1,6 +1,5 @@
 # Gestion Surveillance Backend - System Architecture Documentation
-![image](https://github.com/Anejjar24/surveillance_backend-_springboot/issues/1#issue-3654593939)
-<img src="[https://github.com/username/repo/assets/123456789/abcdef12345](https://github.com/Anejjar24/surveillance_backend-_springboot/issues/1#issue-3654593939)" width="300" />
+<img width="825" height="397" alt="Image" src="https://github.com/user-attachments/assets/7281a0b0-a85f-4cca-8dbc-9b34a4d34bf6" />
 
 ## Table of Contents
 1. [Big Picture Overview](#big-picture-overview)
